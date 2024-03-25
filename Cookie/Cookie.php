@@ -235,3 +235,71 @@ function diplay_preferences_consentement_google_analytics()
     </div>
     <?php
 }
+
+function display_ga_id_input()
+{
+    $user_ga_id = '';
+    ?>
+    <div class="wrap">
+        <h2>Paramètres Google Analytics</h2>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+            <input type="hidden" name="action" value="save_ga_id">
+            <label for="ga_id">Identifiant Google Analytics:</label>
+            <input type="text" id="ga_id" name="ga_id" value="<?php echo esc_attr($user_ga_id); ?>" />
+            <input type="submit" class="button-primary" value="Enregistrer">
+        </form>
+    </div>
+    <?php
+}
+
+
+function add_ga_to_tarteaucitron()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wp_tarteaucitron_google_analytics'; // Assurez-vous que c'est le bon nom de table
+    $user_ga_id = $wpdb->get_var("SELECT google_analytics_id FROM $table_name WHERE id = 1");
+
+    if (!empty($user_ga_id)) {
+        ?>
+        <script>
+            tarteaucitron.user.gajsUa = '<?php echo esc_js($user_ga_id); ?>';
+            tarteaucitron.user.gajsMore = function () { /* add here your optional _ga.push() */ };
+            (tarteaucitron.job = tarteaucitron.job || []).push('gajs');
+        </script>
+        <?php
+    }
+}
+add_action('wp_footer', 'add_ga_to_tarteaucitron');
+
+function save_ga_id()
+{
+    global $wpdb;
+
+    // Récupérer l'identifiant Google Analytics depuis le formulaire
+    $user_ga_id = isset($_POST['ga_id']) ? sanitize_text_field($_POST['ga_id']) : '';
+
+    // Valider l'identifiant Google Analytics
+    if (preg_match('/^GTM-\w+$/', $user_ga_id)) {
+        // Si l'identifiant est valide, le nettoyer
+        $user_ga_id = sanitize_text_field($user_ga_id);
+
+        // Enregistrer l'identifiant Google Analytics dans la base de données
+        $table_name = $wpdb->prefix . 'wp_tarteaucitron_google_analytics';
+        $wpdb->update(
+            $table_name,
+            array('google_analytics_id' => $user_ga_id),
+            array('id' => 1),
+            array('%s'),
+            array('%d')
+        );
+    } else {
+        // Si l'identifiant n'est pas valide, afficher un message d'erreur
+        wp_die('L\'identifiant Google Analytics n\'est pas valide.');
+    }
+
+    // Rediriger vers la page de consentement Google Analytics
+    wp_redirect(admin_url('admin.php?page=consentement_google_analytics'));
+    exit;
+}
+
+add_action('admin_post_save_ga_id', 'save_ga_id');
