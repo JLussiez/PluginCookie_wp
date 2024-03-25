@@ -4,4 +4,4 @@ Plugin Cookie :
 
 Custom css :
 
-```themes/twentytwentyfour```
+```wp-content/themes/twentytwentyfour```
