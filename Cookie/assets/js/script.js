@@ -44,3 +44,19 @@ tarteaucitron.init({
 tarteaucitron.user.gajsUa = 'UA-XXXXXXXX-X';
 tarteaucitron.user.gajsMore = function () { /* add here your optionnal _ga.push() */ };
 (tarteaucitron.job = tarteaucitron.job || []).push('gajs');
+
+tarteaucitron.user.recaptchaapi = 'XXXXX';
+(tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
+
+
+(tarteaucitron.job = tarteaucitron.job || []).push('hcaptcha');
+
+tarteaucitron.user.googleadsId = 'AW-XXXXXXXXX';
+(tarteaucitron.job = tarteaucitron.job || []).push('googleads');
+
+tarteaucitron.user.mtcaptchaSitekey = 'SiteKey';
+(tarteaucitron.job = tarteaucitron.job || []).push('mtcaptcha');
+
+(tarteaucitron.job = tarteaucitron.job || []).push('hcaptcha');
+
+(tarteaucitron.job = tarteaucitron.job || []).push('gcmsecurity');
