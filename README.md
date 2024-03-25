@@ -1,6 +1,6 @@
 Plugin Cookie :
 
-```wp-content/plugins```
+```php wp-content/plugins```
 
 Custom css :
 
