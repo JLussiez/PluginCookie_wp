@@ -6,8 +6,8 @@
 
 ```wp-content/themes/twentytwentyfour```
 
-## Install TarteAuCitron
+## Install TarteAuCitron :
 https://tarteaucitron.io/fr/install/
 
-## Release TarteAuCitron
+## Release TarteAuCitron :
 https://github.com/AmauriC/tarteaucitron.js/releases
