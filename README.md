@@ -1,7 +1,7 @@
 Plugin Cookie :
 
-wp-content/plugins
+```wp-content/plugins```
 
 Custom css :
 
-themes/twentytwentyfour
+```themes/twentytwentyfour```
